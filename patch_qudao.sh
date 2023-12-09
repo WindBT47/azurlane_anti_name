@@ -8,7 +8,7 @@ download_azurlane () {
     # 这个链接是MUMU下载的,应该是9游,其他渠道自行修改直链
     #url="https://downali.game.uc.cn/s1/2/10/20230213150150_blhx_uc_2022_11_02_18_24_01.apk?x-oss-process=udf/uc-apk,ZBHDhDR0LVBkTsK*wpLCng==afae37c2a88fd1ca&sh=10&sf=1831727323&vh=18330f93bd450707942ce0b882a0c6b2&cc=2521889677&did=217b729f8a4841dd81901816dfba551f"
     #这个链接是lenovo
-    url="https://apks2.lenovomm.cn/dlserver/fileman/ali/app/app-apkg-lestore/4149.489755403913-2022-11-10-1668076119790.apk?sign=d56fde66c3773ef82dbd3c9b5464af3d&t=641f0998&order=0&uuid=c7413b778b1b4b18a99ac8e015485df5&cMD5=false&sorder=7&group=&ts=1679582872720&cpn=com.lenovo.appstore.3g&cid=17071"
+    url="https://apks7.lenovomm.cn/dlserver/fileman/ali/app/app-apkg-lestore/2311.7944755237963-2023-06-20-1687254571155.apk?sign=17c221a23d015f2b8ea4e5ba11050c7f&t=65769662&order=0&uuid=5d7975f47ef64c8ea37aceb2f761e5c2&cMD5=false&sorder=0&group=&ts=1702097762850&cpn=com.lenovo.appstore.3g&cid=17071"
     # 使用wget命令下载apk文件
     curl -o blhx.apk  $url
     fi
