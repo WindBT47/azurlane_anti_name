@@ -1,4 +1,4 @@
-name: BAIDU
+name: LENOVO
 
 on:
   workflow_dispatch:
@@ -23,7 +23,7 @@ jobs:
       - name: download
         run:  ./download.sh
       - name: chmod Build
-        run: chmod +x patch_baidu.sh
+        run: chmod +x patch_lenovo.sh
       - name: Build apk
         run:  ./patch_baidu.sh
       - name: Zipalign chmod
