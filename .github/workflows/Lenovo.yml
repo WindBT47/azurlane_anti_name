@@ -1,5 +1,7 @@
 name: lenovo
+
 on:
+  push:
   workflow_dispatch:
 
 jobs:
@@ -17,7 +19,7 @@ jobs:
       - name: copy file
         run: |
           cp -r sh/* ./
-      - name: download chmod
+      - name: chmod download
         run: chmod +x download.sh
       - name: download
         run:  ./download.sh
@@ -25,6 +27,15 @@ jobs:
         run: chmod +x patch_lenovo.sh
       - name: Build apk
         run:  ./patch_lenovo.sh
+
+      - name: Setup Android SDK Tools
+        uses: android-actions/setup-android@v3.2.1
+        with:
+          packages: 'platform-tools platforms;android-34 build-tools;34.0.0'
+      - name: Output build-tools path and add to PATH
+        run: |
+          ls -la ${ANDROID_SDK_ROOT}/build-tools/34.0.0
+          echo "${ANDROID_SDK_ROOT}/build-tools/34.0.0" >> $GITHUB_PATH
       - name: Zipalign chmod
         run: chmod +x zipalign_sign.sh
       - name: Zipalign and Sign Android release
@@ -33,7 +44,7 @@ jobs:
       - uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "lenovo"
+          automatic_release_tag: "BILIBILI_Dev"
           draft: true
           title: " ${{ env.PERSEUS_VERSION }}"
           files: |
