@@ -9,20 +9,29 @@ extract_android_link() {
 
 
 # Download Azur Lane
-download_azurlane () {
+download_azurlane() {
     if [ ! -f "AzurLane.apk" ]; then
-    # 下载游戏apk的地址,我找不到一个固定的链接,理论上每次更新客户端都要手动改地址
-    # url="https://pkg.biligame.com/games/blhx_8.1.1_20240426_1_20240429_053419_20cea.apk"
-    url=$(extract_android_link)
-    # 使用wget命令下载apk文件
-    axel -n 16 -k -o blhx.apk $url
+        url=$(extract_android_link)
+        echo "下载地址: $url"
+
+        # 使用强化请求头下载
+        if ! curl -L -o "AzurLane.apk" "$url" \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)..." \
+            -H "Referer: https://www.bilibili.com/" \
+            -H "Accept: text/html,application/xhtml+xml..." \
+            -H "Accept-Language: zh-CN,zh;q=0.9" \
+            --retry 3 --retry-delay 5; then
+            echo "错误: 下载失败，可能是IP被封锁或请求头不足"
+            exit 1
+        fi
     fi
 }
 
 if [ ! -f "AzurLane.apk" ]; then
-    echo "Get Azur Lane apk"
+    # 主流程
+    echo "开始获取APK..."
     download_azurlane
-    mv *.apk "AzurLane.apk"
+    [ -f "AzurLane.apk" ] && echo "APK下载成功！" || echo "下载失败"
 fi
 
 
@@ -33,9 +42,9 @@ echo "Copy libs"
 cp -r libs/. AzurLane/lib/
 
 echo "Patching Azur Lane"
-oncreate=$(grep -n -m 1 'onCreate' AzurLane/smali_classes2/com/unity3d/player/UnityPlayerActivity.smali | sed  's/[0-9]*\:\(.*\)/\1/')
-sed -ir "s#\($oncreate\)#.method private static native init(Landroid/content/Context;)V\n.end method\n\n\1#" AzurLane/smali_classes2/com/unity3d/player/UnityPlayerActivity.smali
-sed -ir "s#\($oncreate\)#\1\n    const-string v0, \"Dev_Liu\"\n\n\    invoke-static {v0}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V\n\n    invoke-static {p0}, Lcom/unity3d/player/UnityPlayerActivity;->init(Landroid/content/Context;)V\n#" AzurLane/smali_classes2/com/unity3d/player/UnityPlayerActivity.smali
+oncreate=$(grep -n -m 1 'onCreate' AzurLane/smali_classes3/com/unity3d/player/UnityPlayerActivity.smali | sed  's/[0-9]*\:\(.*\)/\1/')
+sed -ir "s#\($oncreate\)#.method private static native init(Landroid/content/Context;)V\n.end method\n\n\1#" AzurLane/smali_classes3/com/unity3d/player/UnityPlayerActivity.smali
+sed -ir "s#\($oncreate\)#\1\n    const-string v0, \"Dev_Liu\"\n\n\    invoke-static {v0}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V\n\n    invoke-static {p0}, Lcom/unity3d/player/UnityPlayerActivity;->init(Landroid/content/Context;)V\n#" AzurLane/smali_classes3/com/unity3d/player/UnityPlayerActivity.smali
 
 echo "Build Patched Azur Lane apk"
 java -jar apktool.jar  -f b AzurLane -o AzurLane.patched.apk
