@@ -4,7 +4,7 @@
 download_azurlane () {
     if [ ! -f "AzurLane.apk" ]; then
     #这个链接是百度 https://mobile.baidu.com/item?docid=5008915318&f0=search_searchContent%400_appBaseNormal%400&advitem=source%2Bnatural%40pos%2B1%40bid%2B0%40ctr%2B0.000000%40trans%2B%40keyword%2B%E7%A2%A7%E8%93%9D%E8%88%AA%E7%BA%BF%40app_rcv%2B
-    url="https://apks7.lenovomm.cn/dlserver/fileman/ali/app/app-apkg-lestore/1848-2025-06-03053348-1748943228430.apk?sign=def9f244d477bca4a2f06167aa323596&t=684ae839&order=0&uuid=2c43b16b391044918302b8a1523aeecd&cMD5=false&sorder=0&group=&ts=1749566777721&cpn=-1&cid=17071&__bc=1&__cid=17071&__ip=171.213.183.246&__ept=1&dck=1&dp=0"
+    url="https://apks7.lenovomm.cn/dlserver/fileman/ali/app/app-apkg-lestore/1277-2025-08-20073147-1755689507874.apk?sign=85abb939b39ece620da9b7ba41cd6ddd&t=68b32adf&order=0&uuid=913dd344fa024471b658e82d2a579c2d&cMD5=false&sorder=0&group=&ts=1756399583888&cpn=-1&cid=17071&__bc=1&__cid=17071&__ip=171.222.188.87&__ept=1&dck=1&dp=0"
     # 使用curl命令下载apk文件
     axel -n 16 -k -o blhx.apk $url
     fi
