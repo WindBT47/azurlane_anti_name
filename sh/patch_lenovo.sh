@@ -18,7 +18,7 @@ fi
 
 
 echo "Decompile Azur Lane apk"
-java -jar apktool.jar  -f d AzurLane.apk
+java -jar apktool.jar   b -f AzurLane -o AzurLane.patched.apk
 
 echo "Copy libs"
 cp -r libs/. AzurLane/lib/
